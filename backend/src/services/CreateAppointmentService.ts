@@ -9,7 +9,7 @@ interface Request {
   date: Date;
 }
 
-class CreateAppointmentService {
+export default class CreateAppointmentService {
   public async execute({ provider_id, date }: Request): Promise<Appointment> {
     const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
@@ -33,5 +33,3 @@ class CreateAppointmentService {
     return appointment;
   }
 }
-
-export default CreateAppointmentService;
