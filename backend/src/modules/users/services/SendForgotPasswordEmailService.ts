@@ -4,7 +4,6 @@ import AppError from '@shared/errors/AppError';
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
 import IUsersRepository from '../repositories/IUserRepository';
 
-import User from '../infra/typeorm/entities/User';
 import IUserTokensRepository from '../repositories/IUserTokensRepository';
 
 interface IRequest {
@@ -31,11 +30,11 @@ export default class SendForgotPasswordEmailService {
       throw new AppError('The user does not exists.');
     }
 
-    this.userTokensRepository.generate(user.id);
+    const { token } = await this.userTokensRepository.generate(user.id);
 
-    this.mailProvider.sendMail(
+    await this.mailProvider.sendMail(
       email,
-      'Pedido de recuparação de senha recebido',
+      `Pedido de recuparação de senha recebido ${token}`,
     );
   }
 }
