@@ -1,5 +1,5 @@
 import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository';
-import ListProviderMonthAvailabilityService from './ListProviderMontAvailabilityService';
+import ListProviderMonthAvailabilityService from './ListProviderMonthAvailabilityService';
 
 let fakeAppointmentsRepository: FakeAppointmentsRepository;
 let listProviderMonthAvailability: ListProviderMonthAvailabilityService;
@@ -12,7 +12,7 @@ describe('ListProviderMonthAvailability', () => {
     );
   });
 
-  it('It should be able to list de month availability of a provider', async () => {
+  it('It should be able to list the month availability of a provider', async () => {
     await fakeAppointmentsRepository.create({
       provider_id: 'provider',
       date: new Date(2020, 6, 1, 8, 0, 0),
