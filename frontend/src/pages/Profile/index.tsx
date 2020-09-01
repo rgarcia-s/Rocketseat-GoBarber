@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { FiMail, FiLock, FiUser, FiArrowLeft } from 'react-icons/fi';
+import { FiMail, FiLock, FiUser, FiArrowLeft, FiCamera } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -11,12 +11,11 @@ import { useToast } from '../../hooks/toast';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import logoImg from '../../assets/logo.svg';
-
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-import { Container, Content, Background, AnimationContainer } from './styles';
+import { Container, Content, AvatarInput } from './styles';
+import { useAuth } from '../../hooks/auth';
 
 interface ProfileFormData {
   name: string;
@@ -28,6 +27,8 @@ const Profile: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useToast();
   const history = useHistory();
+
+  const { user } = useAuth();
 
   const handleSubmit = useCallback(
     async (data: ProfileFormData) => {
@@ -75,31 +76,56 @@ const Profile: React.FC = () => {
 
   return (
     <Container>
-      <Background />
-      <Content>
-        <AnimationContainer>
-          <img src={logoImg} alt="GoBarber" />
-
-          <Form ref={formRef} onSubmit={handleSubmit}>
-            <h1>Faça seu cadastro</h1>
-
-            <Input name="name" icon={FiUser} placeholder="Nome" />
-            <Input name="email" icon={FiMail} placeholder="E-mail" />
-            <Input
-              name="password"
-              type="password"
-              icon={FiLock}
-              placeholder="Senha"
-            />
-
-            <Button type="submit">Cadastrar</Button>
-          </Form>
-
-          <Link to="/">
+      <header>
+        <div>
+          <Link to="/dashboard">
             <FiArrowLeft />
-            Voltar para logon
           </Link>
-        </AnimationContainer>
+        </div>
+      </header>
+
+      <Content>
+        <Form
+          ref={formRef}
+          initialData={{
+            name: user.name,
+            email: user.email,
+          }}
+          onSubmit={handleSubmit}
+        >
+          <AvatarInput>
+            <img src={user.avatar_url} alt={user.name} />
+            <button type="button">
+              <FiCamera />
+            </button>
+          </AvatarInput>
+
+          <h1>Meu perfil</h1>
+
+          <Input name="name" icon={FiUser} placeholder="Nome" />
+          <Input name="email" icon={FiMail} placeholder="E-mail" />
+          <Input
+            containerStyle={{ marginTop: 24 }}
+            name="old_password"
+            type="password"
+            icon={FiLock}
+            placeholder="Senha atual"
+          />
+          <Input
+            name="password"
+            type="password"
+            icon={FiLock}
+            placeholder="Nova senha"
+          />
+          <Input
+            name="password_confirmation"
+            type="password"
+            icon={FiLock}
+            placeholder="Confirmar senha"
+          />
+
+          <Button type="submit">Confirmar mudanças</Button>
+        </Form>
       </Content>
     </Container>
   );

@@ -1,97 +1,90 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { shade } from 'polished';
 
-import SignUpBackgroundImg from '../../assets/sign-up-background.png';
-
 export const Container = styled.div`
-  height: 100vh;
+  > header {
+    height: 144px;
+    background: #28262e;
 
-  display: flex;
-  align-items: stretch;
+    display: flex;
+    align-items: center;
+
+    div {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+
+      svg {
+        color: #999591;
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
 `;
 
 export const Content = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
+  margin: -176px auto 0;
   width: 100%;
-  max-width: 700px;
-`;
-
-const appearFromRight = keyframes`
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0px);
-  }
-`;
-
-export const AnimationContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  animation: ${appearFromRight} 1.5s;
 
   form {
     margin: 80px 0;
     width: 340px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
 
     h1 {
       margin-bottom: 24px;
-    }
-
-    a {
-      color: #f4ede8;
-      display: block;
-      margin-top: 24px;
-      text-decoration: none;
-
-      transition: color 0.2s;
-
-      &:hover {
-        color: ${shade(0.2, '#f4ede8')};
-      }
+      font-size: 20px;
+      text-align: left;
     }
   }
 
-  > a {
-    color: #ff9000;
+  input[name='old_password'] {
+    margin-top: 16px;
+  }
+`;
+
+export const AvatarInput = styled.div`
+  margin-bottom: 32px;
+  position: relative;
+  align-self: center;
+
+  img {
+    width: 186px;
+    height: 186px;
+    border-radius: 50%;
+  }
+
+  button {
+    position: absolute;
+    background: #ff9000;
+    height: 48px;
+    width: 48px;
+    border: none;
+    border-radius: 50%;
+    right: 0;
+    bottom: 0;
+    transition: background-color, 0.2s;
+
     display: flex;
     align-items: center;
-    margin-top: 24px;
-    text-decoration: none;
-
-    transition: color 0.2s;
-
-    &:hover {
-      color: ${shade(0.2, '#ff9000')};
-    }
+    justify-content: center;
 
     svg {
-      margin-right: 16px;
+      height: 20px;
+      width: 20px;
+      color: #312e38;
+    }
+
+    &:hover {
+      background: ${shade(0.2, '#ff9000')};
     }
   }
-`;
-
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
-export const Background = styled.div`
-  flex: 1;
-  background: url(${SignUpBackgroundImg}) no-repeat center;
-  background-size: cover;
-
-  animation: ${fadeIn} 0.5s;
 `;
