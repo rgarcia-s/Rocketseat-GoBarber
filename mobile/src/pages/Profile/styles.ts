@@ -1,10 +1,10 @@
 import styled from 'styled-components/native';
-import { Platform } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   flex: 1;
   justify-content: flex-start;
-  padding: 0 30px ${Platform.OS === 'android' ? 150 : 40}px;
+  padding: 0 30px 40px;
 `;
 
 export const BackButton = styled.TouchableOpacity`
@@ -28,4 +28,21 @@ export const Title = styled.Text`
   font-family: 'RobotoSlab-Medium';
 
   margin: 24px 0;
+`;
+
+export const SignOutButton = styled(RectButton)`
+  width: 100%;
+  height: 60px;
+  background: #ff1515;
+  border-radius: 10px;
+  margin-top: 12px;
+
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SignOutButtonText = styled.Text`
+  font-family: 'RobotoSlab-Medium';
+  color: #312e38;
+  font-size: 20px;
 `;

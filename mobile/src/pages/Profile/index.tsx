@@ -28,6 +28,8 @@ import {
   UserAvatarButton,
   UserAvatar,
   Title,
+  SignOutButton,
+  SignOutButtonText,
 } from './styles';
 
 interface UpdateProfileFormData {
@@ -39,7 +41,7 @@ interface UpdateProfileFormData {
 }
 
 const Profile: React.FC = () => {
-  const { user, updateUser } = useAuth();
+  const { user, updateUser, signOut } = useAuth();
   const navigation = useNavigation();
 
   const formRef = useRef<FormHandles>(null);
@@ -157,6 +159,10 @@ const Profile: React.FC = () => {
     navigation.goBack();
   }, [navigation]);
 
+  const handleSingOut = useCallback(() => {
+    signOut();
+  }, [signOut]);
+
   return (
     <>
       <KeyboardAvoidingView
@@ -166,7 +172,7 @@ const Profile: React.FC = () => {
       >
         <ScrollView
           keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{ flex: 1 }}
+          contentContainerStyle={{ flexGrow: 1 }}
         >
           <Container>
             <BackButton onPress={handleGoBack}>
@@ -245,6 +251,10 @@ const Profile: React.FC = () => {
                 Confirmar mudanças
               </Button>
             </Form>
+
+            <SignOutButton onPress={handleSingOut}>
+              <SignOutButtonText>Sair</SignOutButtonText>
+            </SignOutButton>
           </Container>
         </ScrollView>
       </KeyboardAvoidingView>
