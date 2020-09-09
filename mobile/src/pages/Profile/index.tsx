@@ -180,7 +180,13 @@ const Profile: React.FC = () => {
             </BackButton>
 
             <UserAvatarButton onPress={handleUpdateAvatar}>
-              <UserAvatar source={{ uri: user.avatar_url }} />
+              <UserAvatar
+                source={{
+                  uri:
+                    user.avatar_url ||
+                    `https://ui-avatars.com/api/?name=${user.name}&background=ff9900&color=312e38&size=256`,
+                }}
+              />
             </UserAvatarButton>
 
             <View>

@@ -91,6 +91,7 @@ const CreateAppointment: React.FC = () => {
 
   const handleSelectedProvider = useCallback((providerId) => {
     setSelectedProvider(providerId);
+    setSelectedHour(0);
   }, []);
 
   const handleToggleDatePicker = useCallback(() => {
@@ -104,6 +105,7 @@ const CreateAppointment: React.FC = () => {
 
     if (date) {
       setSelectedDate(date);
+      setSelectedHour(0);
     }
   }, []);
 
@@ -165,7 +167,13 @@ const CreateAppointment: React.FC = () => {
 
         <HeaderTitle>Cabeleireiros</HeaderTitle>
 
-        <UserAvatar source={{ uri: user.avatar_url }} />
+        <UserAvatar
+          source={{
+            uri:
+              user.avatar_url ||
+              `https://ui-avatars.com/api/?name=${user.name}&background=ff9900&color=312e38&size=256`,
+          }}
+        />
       </Header>
 
       <Content>
@@ -181,7 +189,13 @@ const CreateAppointment: React.FC = () => {
                 last={providers.indexOf(provider) === providers.length - 1}
                 onPress={() => handleSelectedProvider(provider.id)}
               >
-                <ProviderAvatar source={{ uri: provider.avatar_url }} />
+                <ProviderAvatar
+                  source={{
+                    uri:
+                      provider.avatar_url ||
+                      `https://ui-avatars.com/api/?name=${provider.name}&background=ff9900&color=312e38&size=256`,
+                  }}
+                />
                 <ProviderName selected={provider.id === selectedProvider}>
                   {provider.name}
                 </ProviderName>
